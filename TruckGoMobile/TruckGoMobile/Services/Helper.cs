@@ -23,6 +23,18 @@ namespace TruckGoMobile.Services
 
     public static class Helper
     {
+
+        public static async Task LogError(string responseText,string date,dynamic parameters)
+        {
+            var response = await ApiCall<BaseResponseModel>(RequestType.Post, ControllerType.App, "logerror", JsonConvert.SerializeObject(new
+            {
+                UserManager.Instance.CurrentLoggedInUser.AccessToken,         
+                responseText,
+                date,
+                parameters
+            }));
+        }
+
         public static async Task<T> ApiCall<T>(RequestType type, ControllerType controller, string actionName, string inputParams = null) 
             where T : class
         {

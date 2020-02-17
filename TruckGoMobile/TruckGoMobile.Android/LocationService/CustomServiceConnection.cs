@@ -23,9 +23,7 @@ namespace TruckGoMobile.Droid.LocationService
             LocationUpdateServiceBinder binder = (LocationUpdateServiceBinder)service;
             Activity.Service = LocationServiceManager.mInstance = binder.GetLocationUpdatesService();
             Activity.Bound = true;
-            //Utils.SetServiceBinded(LocationServiceManager.mInstance, true);
             Utils.SetServiceBinded(Activity, true);
-            //Utils.SetRequestingLocationUpdates(LocationServiceManager.mInstance, false);
             Utils.SetRequestingLocationUpdates(Activity, false);
             RootPage.LocationServiceInitialized = true;
         }
