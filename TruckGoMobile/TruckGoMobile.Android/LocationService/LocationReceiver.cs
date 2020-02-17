@@ -42,7 +42,7 @@ namespace TruckGoMobile.Droid.LocationService
                 var response = await Helper.ApiCall<BaseResponseModel>(RequestType.Post, ControllerType.User, "setlocationupdates", data);
 
                 if (response.responseVal == -3)
-                    _failedLocations.Add(data);
+                    _failedLocations.Add(data, response.responseVal);
             }
         }
     }
