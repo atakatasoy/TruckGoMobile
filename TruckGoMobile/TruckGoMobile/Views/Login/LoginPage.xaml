@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:custom="clr-namespace:TruckGoMobile.Views.PartialView"
+             x:Name="page"
+             BackgroundColor="#2232A3"
+             x:Class="TruckGoMobile.Views.LoginPage">
+    <ContentPage.Content>
+        <Frame Margin="15"
+               VerticalOptions="CenterAndExpand"
+               HorizontalOptions="FillAndExpand"
+               CornerRadius="12"
+               BorderColor="White"
+               BackgroundColor="#2232A3"
+               Padding="10">
+            <StackLayout BackgroundColor="#2232A3"
+                         Spacing="6">
+                <Image Source="../TruckGo.jpg"
+                       WidthRequest="200"
+                       HeightRequest="200"
+                       Aspect="AspectFill"
+                       Margin="0"/>
+                <custom:CustomInput PlaceholderText="Lütfen Kullanıcı adınızı giriniz..."
+                                    TitleText="Kullanıcı Adı"
+                                    x:Name="usernameEntry"
+                                    Returned="Entry_Returned"
+                                    EntryText="{Binding BindingContext.Username,Source={x:Reference page}}"
+                                    LineColor="#2232A3"
+                                    BackgroundColor="White"/>
+                <custom:CustomInput PlaceholderText="Lütfen Şifrenizi giriniz..."
+                                    TitleText="Şifre"
+                                    x:Name="passwordEntry"
+                                    Password="True"
+                                    Returned="Entry_Returned"
+                                    EntryText="{Binding BindingContext.Password,Source={x:Reference page}}"
+                                    LineColor="#2232A3"
+                                    BackgroundColor="White"/>
+                <Button Command="{Binding LoginCommand}"
+                        Text="Giriş"
+                        WidthRequest="100"
+                        HeightRequest="40"
+                        Margin="0,8,0,0"
+                        BackgroundColor="White"
+                        TextColor="#2232A3"
+                        BorderRadius="6"
+                        HorizontalOptions="Center"/>
+            </StackLayout>
+        </Frame>
+        
+    </ContentPage.Content>
+</ContentPage>

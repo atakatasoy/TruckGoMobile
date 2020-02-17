@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:LoadingContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:TruckGoMobile"
+             x:Class="TruckGoMobile.Views.Home.ProfilePage">
+    <local:LoadingContentPage.Content>
+        <Grid Padding="10,10,10,10"
+              BackgroundColor="LightGray"
+              RowSpacing="5"
+              BindingContext="{Binding UserInfo}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <ScrollView Grid.Row="0">
+                <Frame Padding="5"
+                       CornerRadius="9">
+                    <StackLayout Spacing="11">
+                        <Label Text="Kişisel Bilgiler"
+                               FontSize="19"
+                               FontAttributes="Bold"
+                               HorizontalTextAlignment="Center"
+                               VerticalTextAlignment="Center"/>
+                        
+                        <Grid HeightRequest="1.5"
+                              Margin="0,-10,0,20"
+                              BackgroundColor="LightGray"/>
+                        
+                        <StackLayout Orientation="Horizontal"
+                                 Spacing="1">
+                            <Label Text="İsim Soyisim: "
+                                   FontAttributes="Bold"
+                                   FontSize="Medium"
+                                   VerticalTextAlignment="Center"/>
+                            <Label Text="{Binding NameSurname}"
+                                   TextColor="#2232A3"
+                                   VerticalTextAlignment="Center"
+                                   FontSize="Medium"/>
+                        </StackLayout>
+
+                        <Grid HeightRequest="1.5"
+                              Margin="0,-10,0,0"
+                              BackgroundColor="LightGray"/>
+
+                        <StackLayout Orientation="Horizontal"
+                                 Spacing="1">
+                            <Label Text="Telefon Numarası:"
+                                   FontAttributes="Bold"
+                                   FontSize="Medium"
+                                   VerticalTextAlignment="Center"/>
+                            <Label Text="{Binding ContactInfo}"
+                                   TextColor="#2232A3"
+                                   VerticalTextAlignment="Center"
+                                   FontSize="Medium"/>
+                        </StackLayout>
+
+                        <Grid HeightRequest="1.5"
+                              Margin="0,-10,0,0"
+                              BackgroundColor="LightGray"/>
+
+                        <StackLayout Orientation="Horizontal"
+                                 Spacing="1">
+                            <Label Text="Üyelik başlangıç: "
+                                   FontAttributes="Bold"
+                                   FontSize="Medium"
+                                   VerticalTextAlignment="Center"/>
+                            <Label Text="{Binding CreateDate}"
+                                   TextColor="#2232A3"
+                                   VerticalTextAlignment="Center"
+                                   FontSize="Medium"/>
+                        </StackLayout>
+
+                        <Grid HeightRequest="1.5"
+                              Margin="0,-10,0,0"
+                              BackgroundColor="LightGray"/>
+
+                        <StackLayout Orientation="Horizontal"
+                                 Spacing="1">
+                            <Label Text="Şirket Adı: "
+                                   FontAttributes="Bold"
+                                   FontSize="Medium"
+                                   VerticalTextAlignment="Center"/>
+                            <Label Text="{Binding CompanyName}"
+                                   VerticalTextAlignment="Center"
+                                   TextColor="#2232A3"
+                                   FontSize="Medium"/>
+                        </StackLayout>
+
+                        <Grid HeightRequest="1.5"
+                              Margin="0,-10,0,0"
+                              BackgroundColor="LightGray"/>
+
+                        <StackLayout Orientation="Horizontal"
+                                 Spacing="1">
+                            <Label Text="Kullanıcı Tipi: "
+                                   FontAttributes="Bold"
+                                   FontSize="Medium"
+                                   VerticalTextAlignment="Center"/>
+                            <Label Text="{Binding UserType}"
+                                   VerticalTextAlignment="Center"
+                                   TextColor="#2232A3"
+                                   FontSize="Medium"/>
+                        </StackLayout>
+
+                        <Grid HeightRequest="1.5"
+                              Margin="0,-10,0,0"
+                              BackgroundColor="LightGray"/>
+
+                        <Button HorizontalOptions="EndAndExpand"
+                                Text="Düzenle"
+                                CornerRadius="7"
+                                HeightRequest="40"
+                                BackgroundColor="#2232A3"
+                                TextColor="White"
+                                Margin="0,20,8,0"/>
+
+                    </StackLayout>
+                </Frame>
+            </ScrollView>
+            
+            <ScrollView Grid.Row="1">
+                <Frame Padding="5"
+                       CornerRadius="9">
+                    <StackLayout Spacing="11">
+                        <Label Text="Şirket Bilgileri"
+                           FontSize="19"
+                           FontAttributes="Bold"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center"/>
+
+                        <Grid HeightRequest="1.5"
+                          BackgroundColor="LightGray"
+                          Margin="0,-10,0,20"/>
+
+                        <StackLayout Orientation="Horizontal"
+                                 Spacing="1">
+                            <Label Text="Şirket Adı: "
+                                   FontSize="Medium"
+                               FontAttributes="Bold"/>
+                            <Label Text="{Binding CompanyName}"
+                                   TextColor="#2232A3"
+                                   FontSize="Medium"/>
+                        </StackLayout>
+
+                        <Grid HeightRequest="1.5"
+                              Margin="0,-10,0,0"
+                              BackgroundColor="LightGray"/>
+                        
+                        <StackLayout Orientation="Horizontal"
+                                 Spacing="1">
+                            <Label Text="Şirket Sorumlusu: "
+                                   FontSize="Medium"
+                               FontAttributes="Bold"/>
+                            <Label Text="{Binding CompanyResponsible}"
+                                   TextColor="#2232A3"
+                                   FontSize="Medium"/>
+                        </StackLayout>
+
+                        <Grid HeightRequest="1.5"
+                              Margin="0,-10,0,0"
+                              BackgroundColor="LightGray"/>
+
+                        <StackLayout Orientation="Horizontal"
+                                 Spacing="1">
+                            <Label Text="İletişim: "
+                                   FontSize="Medium"
+                               FontAttributes="Bold"/>
+                            <Label Text="{Binding CompanyContactInfo}"
+                                   TextColor="#2232A3"
+                                   FontSize="Medium"/>
+                        </StackLayout>
+
+                        <Grid HeightRequest="1.5"
+                              Margin="0,-10,0,0"
+                              BackgroundColor="LightGray"/>
+
+                        <StackLayout Orientation="Horizontal"
+                                 Spacing="1">
+                            <Label Text="Şirket Adresi: "
+                                   FontSize="Medium"
+                               FontAttributes="Bold"/>
+                            <Label Text="{Binding CompanyAddress}"
+                                   TextColor="#2232A3"
+                                   FontSize="Medium"/>
+                        </StackLayout>
+
+                        <Grid HeightRequest="1.5"
+                              Margin="0,-10,0,0"
+                              BackgroundColor="LightGray"/>
+
+                        <!--<StackLayout Orientation="Horizontal"
+                                 Spacing="1">
+                            <Label Text="5. Bilgi Başlık :"
+                                   FontSize="Medium"
+                               FontAttributes="Bold"/>
+                            <Label Text="5. Bilgi'nin Açıklaması"
+                                   TextColor="#2232A3"
+                                   FontSize="Medium"/>
+                        </StackLayout>
+
+                        <Grid HeightRequest="1.5"
+                              Margin="0,-10,0,0"
+                              BackgroundColor="LightGray"/>-->
+                    </StackLayout>
+                </Frame>
+            </ScrollView>
+
+        </Grid>
+    </local:LoadingContentPage.Content>
+</local:LoadingContentPage>

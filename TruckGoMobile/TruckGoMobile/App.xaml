@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:system="clr-namespace:System;assembly=netstandard"
+             x:Class="TruckGoMobile.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <system:Int32 x:Key="Accident">1</system:Int32>
+            <system:Int32 x:Key="Bribe">2</system:Int32>
+            <system:Int32 x:Key="Theft">3</system:Int32>
+            <!--Global Styles-->
+            <Color x:Key="NavigationPrimary">#2232A3</Color>
+            <Style TargetType="NavigationPage">
+                <Setter Property="BarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
+                <Setter Property="BarTextColor" Value="White" />
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

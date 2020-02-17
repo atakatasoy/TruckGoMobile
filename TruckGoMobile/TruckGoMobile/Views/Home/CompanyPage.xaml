@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:LoadingContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                         xmlns:local="clr-namespace:TruckGoMobile"
+                         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                         Title="Şirket"
+                         x:Class="TruckGoMobile.Views.Home.CompanyPage">
+    <local:LoadingContentPage.Content>
+        <StackLayout Padding="15,15,15,15">
+            <ListView x:Name="mainList"
+                      SelectionMode="None"
+                      SeparatorVisibility="None"
+                      VerticalScrollBarVisibility="Never"
+                      HorizontalScrollBarVisibility="Never"
+                      ItemsSource="{Binding MessageList}"
+                      HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Spacing="0"
+                                         Margin="0,0,0,4">
+                                <Frame Grid.Column="1"
+                                       Padding="4"
+                                       CornerRadius="5"
+                                       HorizontalOptions="{Binding Username, Converter={local:UserTypeToLayoutOptionsConverter}}"
+                                       Margin="{Binding Username,Converter={local:UserTypeToThicknessConverter}}">
+                                    <Label Text="{Binding Message}"
+                                           FontSize="17"
+                                           HorizontalOptions="CenterAndExpand"
+                                           VerticalOptions="CenterAndExpand"
+                                           VerticalTextAlignment="Center"
+                                           HorizontalTextAlignment="Start"/>
+                                </Frame>
+                                <Label FontSize="10"
+                                       Text="{Binding Username}"
+                                       TextColor="#2232A3"
+                                       VerticalTextAlignment="Center"
+                                       HorizontalTextAlignment="Center"
+                                       HorizontalOptions="{Binding Username,Converter={local:UserTypeToLayoutOptionsConverter}}"/>
+                            </StackLayout>
+                            
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <StackLayout Orientation="Horizontal"
+                         Margin="0"
+                         Padding="3">
+                <Entry Text="{Binding MessageText}"
+                        x:Name="messageEntry"
+                        Margin="0"
+                        Placeholder="Mesajı giriniz..."
+                        HorizontalOptions="FillAndExpand"/>
+                <Button Text="Gönder"
+                        CornerRadius="7"
+                        HeightRequest="38"
+                        IsEnabled="{Binding MessageText,Converter={local:MessageTextToEnabledConverter}}"
+                        WidthRequest="65"
+                        Padding="0"
+                        TextColor="White"
+                        BackgroundColor="#2232A3"
+                        Command="{Binding SendCommand}"/>
+            </StackLayout>
+        </StackLayout>
+    </local:LoadingContentPage.Content>
+</local:LoadingContentPage>
