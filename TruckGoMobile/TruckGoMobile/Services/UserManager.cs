@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using TruckGoMobile.Interfaces;
 using Xamarin.Forms;
 
@@ -34,7 +35,12 @@ namespace TruckGoMobile
             if (lastLoggedInUser == null)
                 return false;
 
-            LogInUser(lastLoggedInUser);
+            Task.Run(() => DependencyService.Get<IFirebaseAnalytics>().SendEvent("Login_WithActiveUser", new Dictionary<string, string>
+            {
+                {"NameSurname",CurrentLoggedInUser.UserNameSurname }
+            }));
+
+            LogInUser(lastLoggedInUser, false);
 
             return true;
         }
@@ -49,15 +55,15 @@ namespace TruckGoMobile
             return loggedInUser;
         }
 
-        public void LogInUser(User loginUser)
+        public void LogInUser(User loginUser, bool useAnalytic = true)
         {
             CurrentLoggedInUser = loginUser;
 
-            using(var con = DependencyService.Get<IDatabase>().GetConnection())
+            using (var con = DependencyService.Get<IDatabase>().GetConnection())
             {
                 if (con.Table<User>().FirstOrDefault(user => user.AccessToken == loginUser.AccessToken) is User registeredUser)
                 {
-                    if(!registeredUser.LoggedIn)
+                    if (!registeredUser.LoggedIn)
                         registeredUser.SetProperty(nameof(registeredUser.LoggedIn), true, con);
                     registeredUser.SetProperty(nameof(registeredUser.LastLoggedInDate), DateTime.Now, con);
                 }
@@ -68,12 +74,22 @@ namespace TruckGoMobile
                     con.Insert(loginUser);
                 }
             }
+            if (useAnalytic)
+                Task.Run(() => DependencyService.Get<IFirebaseAnalytics>().SendEvent("Login_WithPass", new Dictionary<string, string>
+                {
+                    {"NameSurname",CurrentLoggedInUser.UserNameSurname }
+                }));
         }
 
         public void LogOffUser()
         {
             if (CurrentLoggedInUser == null)
                 throw new InvalidOperationException("There is no LoggedIn user currently");
+
+            Task.Run(() => DependencyService.Get<IFirebaseAnalytics>().SendEvent("LogOff", new Dictionary<string, string>
+            {
+                {"NameSurname",CurrentLoggedInUser.UserNameSurname }
+            }));
 
             CurrentLoggedInUser.SetProperty(nameof(CurrentLoggedInUser.LoggedIn), false);
             CurrentLoggedInUser = null;

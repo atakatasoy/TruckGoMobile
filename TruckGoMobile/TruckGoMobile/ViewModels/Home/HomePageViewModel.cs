@@ -7,9 +7,8 @@ using Xamarin.Forms;
 
 namespace TruckGoMobile
 {
-    public class HomePageViewModel : INotifyPropertyChanged
+    public class HomePageViewModel : BaseViewModel
     {
-        public event PropertyChangedEventHandler PropertyChanged = (sender, e) => { };
         public HomePageViewModel()
         {
             DependencyService.Get<ILocator>().BindService();

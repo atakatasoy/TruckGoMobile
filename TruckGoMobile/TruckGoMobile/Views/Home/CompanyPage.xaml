@@ -51,16 +51,16 @@
                         Margin="0"
                         Placeholder="Mesajı giriniz..."
                         HorizontalOptions="FillAndExpand"/>
-                <Button Text="Gönder"
-                        x:Name="sendButton"
-                        CornerRadius="7"
-                        HeightRequest="38"
-                        IsEnabled="{Binding MessageText,Converter={local:MessageTextToEnabledConverter}}"
-                        WidthRequest="65"
-                        Padding="0"
-                        TextColor="White"
-                        BackgroundColor="#2232A3"
-                        Command="{Binding SendCommand}"/>
+                <local:AnalyticButton Text="Gönder"
+                                      x:Name="sendButton"
+                                      CornerRadius="7"
+                                      HeightRequest="38"
+                                      IsEnabled="{Binding MessageText,Converter={local:MessageTextToEnabledConverter}}"
+                                      WidthRequest="65"
+                                      Padding="0"
+                                      TextColor="White"
+                                      BackgroundColor="#2232A3"
+                                      Command="{Binding SendCommand}"/>
             </StackLayout>
         </StackLayout>
     </local:AnalyticsBasePage.Content>

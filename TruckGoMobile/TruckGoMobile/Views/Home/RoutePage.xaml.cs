@@ -10,11 +10,11 @@ using Xamarin.Forms.Xaml;
 namespace TruckGoMobile.Views.Home
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class RoutePage : ContentPage
+	public partial class RoutePage : AnalyticsBasePage
 	{
-		public RoutePage ()
-		{
-			InitializeComponent ();
-		}
+        public RoutePage() : base(nameof(RoutePage))
+        {
+            InitializeComponent();
+        }
 	}
 }

@@ -10,61 +10,77 @@ namespace TruckGoMobile
     public class AnalyticsBasePage : LoadingContentPage
     {
         public readonly string pageName;
-
-        List<Button> analyticButtons;
+        List<IAnalyticInteractional> analyticInteractionalViews;
+        IFirebaseAnalytics firebase = DependencyService.Get<IFirebaseAnalytics>();
 
         public AnalyticsBasePage(string pageName)
         {
             this.pageName = pageName;
         }
 
-        public void SetAnalyticButtons(params Button[] buttons)
+        public void SetInteractionalComponents(params IAnalyticInteractional[] buttons)
         {
-            if (analyticButtons != null)
-                UnRegisterButtonAnalyticsEvents();
+            if (analyticInteractionalViews != null)
+                UnRegisterInteractionalComponentEvents();
 
-            analyticButtons = new List<Button>(buttons);
-            RegisterButtonAnalyticsEvents();
+            analyticInteractionalViews = new List<IAnalyticInteractional>(buttons);
+            RegisterInteractionalComponentEvents();
         }
 
-        void UnRegisterButtonAnalyticsEvents()
+        void UnRegisterInteractionalComponentEvents()
         {
-            foreach (var button in analyticButtons)
-                button.Clicked -= AnalyticsButton_Clicked;
+            foreach (var button in analyticInteractionalViews)
+                button.UnregisterMethod(AnalyticsButton_Clicked);
+            
         }
 
-        void RegisterButtonAnalyticsEvents()
+        public void AddInteractionalComponent(IAnalyticInteractional button)
         {
-            foreach (var button in analyticButtons)
-                button.Clicked += AnalyticsButton_Clicked;
+            if (analyticInteractionalViews == null)
+                analyticInteractionalViews = new List<IAnalyticInteractional>();
+
+            analyticInteractionalViews.Add(button);
+            RegisterInteractionalComponentEvents(button);
+        }
+
+        void RegisterInteractionalComponentEvents(IAnalyticInteractional button)
+        {
+            button.RegisterMethod(AnalyticsButton_Clicked);
+        }
+
+        void RegisterInteractionalComponentEvents()
+        {
+            foreach (var component in analyticInteractionalViews)
+                component.RegisterMethod(AnalyticsButton_Clicked);
         }
 
         private void AnalyticsButton_Clicked(object sender, EventArgs e)
         {
-            DependencyService.Get<IFirebaseAnalytics>().SendEvent(pageName + (sender as Button).Text + "Clicked");/*, new Dictionary<string, string>*/
-            //{
-            //    { "NameSurname",UserManager.Instance.CurrentLoggedInUser.UserNameSurname }
-            //});
+            var senderr = sender as Button;
+            Task.Run(() => firebase.SendEvent(pageName + ((sender as IAnalyticInteractional).Identifier ?? "Unknown") + "Clicked", new Dictionary<string, string>
+            {
+                { "NameSurname",UserManager.Instance.CurrentLoggedInUser?.UserNameSurname },
+            }));
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            DependencyService.Get<IFirebaseAnalytics>().SendEvent(pageName + "Appearing", new Dictionary<string, string>
+            Task.Run(() => firebase.SendEvent(pageName + "Appearing", new Dictionary<string, string>
             {
-                {"NameSurname",UserManager.Instance.CurrentLoggedInUser.UserNameSurname },
+                {"NameSurname",UserManager.Instance.CurrentLoggedInUser?.UserNameSurname },
 
-            });
+            }));
         }
 
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            UnRegisterButtonAnalyticsEvents();
-            DependencyService.Get<IFirebaseAnalytics>().SendEvent(pageName + "Disappearing", new Dictionary<string, string>
+            UnRegisterInteractionalComponentEvents();
+            Task.Run(() => firebase.SendEvent(pageName + "Disappearing", new Dictionary<string, string>
             {
-                { "NameSurname",UserManager.Instance.CurrentLoggedInUser.UserNameSurname }
-            });
+                { "NameSurname",UserManager.Instance.CurrentLoggedInUser?.UserNameSurname }
+            }));
         }
     }
 }

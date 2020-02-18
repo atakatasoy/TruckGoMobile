@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace TruckGoMobile.Views.Home
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class CameraPage : ContentPage
-	{
-		public CameraPage ()
+	public partial class CameraPage : AnalyticsBasePage
+    {
+		public CameraPage ():base(nameof(CameraPage))
 		{
 			InitializeComponent ();
 		}

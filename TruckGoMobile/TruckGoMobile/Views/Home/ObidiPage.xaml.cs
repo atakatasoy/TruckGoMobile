@@ -10,11 +10,11 @@ using Xamarin.Forms.Xaml;
 namespace TruckGoMobile.Views.Home
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class ObidiPage : ContentPage
+	public partial class ObidiPage : AnalyticsBasePage
 	{
-		public ObidiPage ()
-		{
-			InitializeComponent ();
-		}
+        public ObidiPage() : base(nameof(ObidiPage))
+        {
+            InitializeComponent();
+        }
 	}
 }

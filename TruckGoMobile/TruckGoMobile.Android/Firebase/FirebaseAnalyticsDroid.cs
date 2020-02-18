@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Text.RegularExpressions;
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -20,6 +20,18 @@ namespace TruckGoMobile.Droid.Firebase
 {
     public class FirebaseAnalyticsDroid : IFirebaseAnalytics
     {
+        private string FixEventId(string eventId)
+        {
+            if (string.IsNullOrWhiteSpace(eventId))
+                return "unknown";
+
+            //remove unwanted characters
+            eventId = Regex.Replace(eventId, @"[^a-zA-Z0-9_]+", "_", RegexOptions.Compiled);
+
+            //trim to 40 if needed
+            return eventId.Substring(0, Math.Min(40, eventId.Length));
+        }
+
         public void SendEvent(string eventId)
         {
             SendEvent(eventId, null);
@@ -35,6 +47,8 @@ namespace TruckGoMobile.Droid.Firebase
 
         public void SendEvent(string eventId, IDictionary<string, string> parameters)
         {
+            eventId = FixEventId(eventId);
+
             var firebaseAnalytics = FirebaseAnalytics.GetInstance(CrossCurrentActivity.Current.Activity);
 
             if (parameters == null)

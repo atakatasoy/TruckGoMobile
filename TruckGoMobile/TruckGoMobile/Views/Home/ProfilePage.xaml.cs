@@ -10,13 +10,14 @@ using Xamarin.Forms.Xaml;
 namespace TruckGoMobile.Views.Home
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class ProfilePage : LoadingContentPage
-	{
+	public partial class ProfilePage : AnalyticsBasePage
+    {
         ProfilePageViewModel viewModel;
-		public ProfilePage ()
-		{
-			InitializeComponent ();
+        public ProfilePage() : base(nameof(ProfilePage))
+        {
+            InitializeComponent();
             BindingContext = viewModel = new ProfilePageViewModel();
-		}
+            AddInteractionalComponent(editButton);
+        }
 	}
 }

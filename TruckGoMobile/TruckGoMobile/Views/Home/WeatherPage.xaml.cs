@@ -10,11 +10,11 @@ using Xamarin.Forms.Xaml;
 namespace TruckGoMobile.Views.Home
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class WeatherPage : ContentPage
+	public partial class WeatherPage : AnalyticsBasePage
 	{
-		public WeatherPage ()
-		{
-			InitializeComponent ();
-		}
+        public WeatherPage() : base(nameof(WeatherPage))
+        {
+            InitializeComponent();
+        }
 	}
 }

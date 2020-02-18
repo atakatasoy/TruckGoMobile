@@ -1,42 +1,46 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<local:AnalyticsBasePage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:TruckGoMobile"
              Title="Acil Durum"
              x:Class="TruckGoMobile.Views.Home.EmergencyPage">
-    <ContentPage.Content>
+    <local:AnalyticsBasePage.Content>
         <Grid RowSpacing="4">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Button Grid.Row="0"
-                    Text="Kayıp/Çalıntı"
-                    FontSize="31"
-                    TextColor="White"
-                    Command="{Binding EmergencyCommand}"
-                    CommandParameter="{DynamicResource Theft}"
-                    VerticalOptions="FillAndExpand"
-                    HorizontalOptions="FillAndExpand"
-                    BackgroundColor="#223261"/>
-            <Button Grid.Row="1"
-                    Text="Kaza"
-                    FontSize="31"
-                    Command="{Binding EmergencyCommand}"
-                    CommandParameter="{DynamicResource Accident}"
-                    TextColor="White"
-                    VerticalOptions="FillAndExpand"
-                    HorizontalOptions="FillAndExpand"
-                    BackgroundColor="Red"/>
-            <Button Grid.Row="2"
-                    Text="Rüşvet"
-                    FontSize="31"
-                    Command="{Binding EmergencyCommand}"
-                    CommandParameter="{DynamicResource Bribe}"
-                    TextColor="White"
-                    VerticalOptions="FillAndExpand"
-                    HorizontalOptions="FillAndExpand"
-                    BackgroundColor="Orange"/>
+            <local:AnalyticButton Grid.Row="0"
+                                  Text="Kayıp/Çalıntı"
+                                  x:Name="stolenButton"
+                                  FontSize="31"
+                                  TextColor="White"
+                                  Command="{Binding EmergencyCommand}"
+                                  CommandParameter="{DynamicResource Theft}"
+                                  VerticalOptions="FillAndExpand"
+                                  HorizontalOptions="FillAndExpand"
+                                  BackgroundColor="#223261"/>
+            <local:AnalyticButton Grid.Row="1"
+                                  Text="Kaza"
+                                  FontSize="31"
+                                  x:Name="accidentButton"
+                                  Command="{Binding EmergencyCommand}"
+                                  CommandParameter="{DynamicResource Accident}"
+                                  TextColor="White"
+                                  VerticalOptions="FillAndExpand"
+                                  HorizontalOptions="FillAndExpand"
+                                  BackgroundColor="Red"/>
+            <local:AnalyticButton Grid.Row="2"
+                                  Text="Rüşvet"
+                                  x:Name="bribeButton"
+                                  FontSize="31"
+                                  Command="{Binding EmergencyCommand}"
+                                  CommandParameter="{DynamicResource Bribe}"
+                                  TextColor="White"
+                                  VerticalOptions="FillAndExpand"
+                                  HorizontalOptions="FillAndExpand"
+                                  BackgroundColor="Orange"/>
         </Grid>
-    </ContentPage.Content>
-</ContentPage>
+    </local:AnalyticsBasePage.Content>
+</local:AnalyticsBasePage>

@@ -8,6 +8,7 @@
             <system:Int32 x:Key="Accident">1</system:Int32>
             <system:Int32 x:Key="Bribe">2</system:Int32>
             <system:Int32 x:Key="Theft">3</system:Int32>
+            
             <!--Global Styles-->
             <Color x:Key="NavigationPrimary">#2232A3</Color>
             <Style TargetType="NavigationPage">

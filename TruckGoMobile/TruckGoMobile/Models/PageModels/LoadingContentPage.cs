@@ -30,10 +30,10 @@ namespace TruckGoMobile
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            foreach(var eachHandler in ReadyToLoadData.GetInvocationList())
-            {
-                ReadyToLoadData -= (WebServiceDataRetrieveHandlers)eachHandler;
-            }
+
+            if (ReadyToLoadData != null)
+                foreach (var eachHandler in ReadyToLoadData.GetInvocationList())
+                    ReadyToLoadData -= (WebServiceDataRetrieveHandlers)eachHandler;
         }
     }
 }

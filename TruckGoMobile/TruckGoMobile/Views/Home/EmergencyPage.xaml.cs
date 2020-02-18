@@ -10,13 +10,14 @@ using Xamarin.Forms.Xaml;
 namespace TruckGoMobile.Views.Home
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class EmergencyPage : ContentPage
+	public partial class EmergencyPage : AnalyticsBasePage
 	{
         EmergencyPageViewModel viewModel;
-		public EmergencyPage ()
-		{
-			InitializeComponent ();
+        public EmergencyPage() : base(nameof(EmergencyPage))
+        {
+            InitializeComponent();
             BindingContext = viewModel = new EmergencyPageViewModel();
-		}
+            SetInteractionalComponents(bribeButton, stolenButton, accidentButton);
+        }
 	}
 }

@@ -18,7 +18,7 @@ namespace TruckGoMobile.Views.Home
         public CompanyPage() : base(nameof(CompanyPage))
         {
             InitializeComponent();
-            SetAnalyticButtons(sendButton);
+            SetInteractionalComponents(sendButton);
             BindingContext = viewModel = new CompanyPageViewModel();
             messageEntry.ReturnType = ReturnType.Send;
             messageEntry.ReturnCommand = new Command(() => viewModel.SendCommand.Execute(null));
