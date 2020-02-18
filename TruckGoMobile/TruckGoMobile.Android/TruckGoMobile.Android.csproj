@@ -54,6 +54,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <GoogleServicesJson Include="google-services.json" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Acr.UserDialogs">
       <Version>7.0.35</Version>
     </PackageReference>
@@ -87,6 +90,9 @@
     <PackageReference Include="Xamarin.Android.Support.Fragment">
       <Version>28.0.0.3</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.Firebase.Core">
+      <Version>71.1601.0</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="4.4.0.991640" />
     <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.3" />
     <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="28.0.0.3" />
@@ -109,6 +115,7 @@
   <ItemGroup>
     <Compile Include="CustomComponents\BorderlessEntryRenderer.cs" />
     <Compile Include="Database\DroidConnection.cs" />
+    <Compile Include="Firebase\FirebaseAnalyticsDroid.cs" />
     <Compile Include="LocationService\CustomServiceConnection.cs" />
     <Compile Include="LocationService\LocationProviderStateListener.cs" />
     <Compile Include="LocationService\LocationReceiver.cs" />

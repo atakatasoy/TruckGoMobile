@@ -35,7 +35,6 @@ namespace TruckGoMobile
                 return false;
 
             LogInUser(lastLoggedInUser);
-            CurrentLoggedInUser = lastLoggedInUser;
 
             return true;
         }

@@ -10413,8 +10413,8 @@ namespace TruckGoMobile.Droid
 			// aapt resource value: 0x7f090044
 			public const int abc_toolbar_collapse_description = 2131296324;
 			
-			// aapt resource value: 0x7f090061
-			public const int app_name = 2131296353;
+			// aapt resource value: 0x7f090069
+			public const int app_name = 2131296361;
 			
 			// aapt resource value: 0x7f090052
 			public const int appbar_scrolling_view_behavior = 2131296338;
@@ -10482,29 +10482,50 @@ namespace TruckGoMobile.Droid
 			// aapt resource value: 0x7f090011
 			public const int common_signin_button_text_long = 2131296273;
 			
+			// aapt resource value: 0x7f090063
+			public const int default_web_client_id = 2131296355;
+			
 			// aapt resource value: 0x7f090056
 			public const int fab_transformation_scrim_behavior = 2131296342;
 			
 			// aapt resource value: 0x7f090057
 			public const int fab_transformation_sheet_behavior = 2131296343;
 			
+			// aapt resource value: 0x7f090064
+			public const int firebase_database_url = 2131296356;
+			
+			// aapt resource value: 0x7f090061
+			public const int gcm_defaultSenderId = 2131296353;
+			
+			// aapt resource value: 0x7f090065
+			public const int google_api_key = 2131296357;
+			
+			// aapt resource value: 0x7f090062
+			public const int google_app_id = 2131296354;
+			
+			// aapt resource value: 0x7f090066
+			public const int google_crash_reporting_api_key = 2131296358;
+			
+			// aapt resource value: 0x7f090067
+			public const int google_storage_bucket = 2131296359;
+			
 			// aapt resource value: 0x7f090058
 			public const int hide_bottom_view_on_scroll_behavior = 2131296344;
 			
-			// aapt resource value: 0x7f090062
-			public const int launch_activity = 2131296354;
+			// aapt resource value: 0x7f09006a
+			public const int launch_activity = 2131296362;
 			
 			// aapt resource value: 0x7f090060
 			public const int library_name = 2131296352;
 			
-			// aapt resource value: 0x7f090063
-			public const int location_unknown = 2131296355;
-			
 			// aapt resource value: 0x7f09006b
-			public const int location_updated = 2131296363;
+			public const int location_unknown = 2131296363;
 			
-			// aapt resource value: 0x7f090064
-			public const int location_updates_label = 2131296356;
+			// aapt resource value: 0x7f090073
+			public const int location_updated = 2131296371;
+			
+			// aapt resource value: 0x7f09006c
+			public const int location_updates_label = 2131296364;
 			
 			// aapt resource value: 0x7f090012
 			public const int mr_button_content_description = 2131296274;
@@ -10581,8 +10602,8 @@ namespace TruckGoMobile.Droid
 			// aapt resource value: 0x7f090059
 			public const int mtrl_chip_close_icon_content_description = 2131296345;
 			
-			// aapt resource value: 0x7f090068
-			public const int ok = 2131296360;
+			// aapt resource value: 0x7f090070
+			public const int ok = 2131296368;
 			
 			// aapt resource value: 0x7f09005a
 			public const int password_toggle_content_description = 2131296346;
@@ -10599,23 +10620,26 @@ namespace TruckGoMobile.Droid
 			// aapt resource value: 0x7f09005e
 			public const int path_password_strike_through = 2131296350;
 			
-			// aapt resource value: 0x7f090066
-			public const int permission_denied_explanation = 2131296358;
+			// aapt resource value: 0x7f09006e
+			public const int permission_denied_explanation = 2131296366;
 			
-			// aapt resource value: 0x7f090065
-			public const int permission_rationale = 2131296357;
+			// aapt resource value: 0x7f09006d
+			public const int permission_rationale = 2131296365;
 			
-			// aapt resource value: 0x7f09006a
-			public const int remove_location_updates = 2131296362;
+			// aapt resource value: 0x7f090068
+			public const int project_id = 2131296360;
 			
-			// aapt resource value: 0x7f090069
-			public const int request_location_updates = 2131296361;
+			// aapt resource value: 0x7f090072
+			public const int remove_location_updates = 2131296370;
+			
+			// aapt resource value: 0x7f090071
+			public const int request_location_updates = 2131296369;
 			
 			// aapt resource value: 0x7f090045
 			public const int search_menu_title = 2131296325;
 			
-			// aapt resource value: 0x7f090067
-			public const int settings = 2131296359;
+			// aapt resource value: 0x7f09006f
+			public const int settings = 2131296367;
 			
 			// aapt resource value: 0x7f09005f
 			public const int status_bar_notification_info_overflow = 2131296351;

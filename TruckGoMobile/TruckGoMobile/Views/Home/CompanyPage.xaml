@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<local:LoadingContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<local:AnalyticsBasePage xmlns="http://xamarin.com/schemas/2014/forms"
                          xmlns:local="clr-namespace:TruckGoMobile"
                          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                          Title="Şirket"
                          x:Class="TruckGoMobile.Views.Home.CompanyPage">
-    <local:LoadingContentPage.Content>
+    <local:AnalyticsBasePage.Content>
         <StackLayout Padding="15,15,15,15">
             <ListView x:Name="mainList"
                       SelectionMode="None"
@@ -52,6 +52,7 @@
                         Placeholder="Mesajı giriniz..."
                         HorizontalOptions="FillAndExpand"/>
                 <Button Text="Gönder"
+                        x:Name="sendButton"
                         CornerRadius="7"
                         HeightRequest="38"
                         IsEnabled="{Binding MessageText,Converter={local:MessageTextToEnabledConverter}}"
@@ -62,5 +63,5 @@
                         Command="{Binding SendCommand}"/>
             </StackLayout>
         </StackLayout>
-    </local:LoadingContentPage.Content>
-</local:LoadingContentPage>
+    </local:AnalyticsBasePage.Content>
+</local:AnalyticsBasePage>

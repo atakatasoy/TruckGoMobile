@@ -13,6 +13,7 @@ namespace TruckGoMobile
         public HomePageViewModel()
         {
             DependencyService.Get<ILocator>().BindService();
+            DependencyService.Get<IFirebaseAnalytics>().SendEvent("HomePageLoaded");
         }
     }
 }

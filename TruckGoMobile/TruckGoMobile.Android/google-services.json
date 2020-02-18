@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "576933474982",
+    "firebase_url": "https://truckgo-78295.firebaseio.com",
+    "project_id": "truckgo-78295",
+    "storage_bucket": "truckgo-78295.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:576933474982:android:ed4ecd1ebe29bcd288fa67",
+        "android_client_info": {
+          "package_name": "com.companyname.TruckGoMobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "576933474982-evieeucakrba4acjnskad9nmnolgufqb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAobxVtxkDV1aUU8iN_5GVVy8Ajk3rhyfA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "576933474982-evieeucakrba4acjnskad9nmnolgufqb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

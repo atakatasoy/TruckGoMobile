@@ -12,21 +12,18 @@ using Xamarin.Forms.Xaml;
 namespace TruckGoMobile.Views.Home
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class CompanyPage : LoadingContentPage
+	public partial class CompanyPage : AnalyticsBasePage
 	{   
         CompanyPageViewModel viewModel;
-		public CompanyPage ()
-		{
-			InitializeComponent ();
+        public CompanyPage() : base(nameof(CompanyPage))
+        {
+            InitializeComponent();
+            SetAnalyticButtons(sendButton);
             BindingContext = viewModel = new CompanyPageViewModel();
             messageEntry.ReturnType = ReturnType.Send;
             messageEntry.ReturnCommand = new Command(() => viewModel.SendCommand.Execute(null));
             viewModel.Client.ConnectionError += ShowError;
             viewModel.NewMessage += FocusToLastItem;
-        }
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
         }
 
         void FocusToLastItem()
