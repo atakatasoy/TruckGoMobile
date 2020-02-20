@@ -12,6 +12,7 @@
                       VerticalScrollBarVisibility="Never"
                       HorizontalScrollBarVisibility="Never"
                       ItemsSource="{Binding MessageList}"
+                      ItemTapped="MainList_ItemTapped"
                       HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -21,6 +22,7 @@
                                 <Frame Grid.Column="1"
                                        Padding="4"
                                        CornerRadius="5"
+                                       BackgroundColor="{Binding SavedSoundLocation,Converter={local:PathStringToColorConverter}}"
                                        HorizontalOptions="{Binding Username, Converter={local:UserTypeToLayoutOptionsConverter}}"
                                        Margin="{Binding Username,Converter={local:UserTypeToThicknessConverter}}">
                                     <Label Text="{Binding Message}"
@@ -61,6 +63,15 @@
                                       TextColor="White"
                                       BackgroundColor="#2232A3"
                                       Command="{Binding SendCommand}"/>
+                <local:AnalyticButton Text="Ses"
+                                      x:Name="voiceButton"
+                                      CornerRadius="7"
+                                      HeightRequest="38"
+                                      WidthRequest="65"
+                                      BackgroundColor="{Binding Recording,Converter={local:BoolToRecordingBackgroundColorConverter}}"
+                                      Padding="0"
+                                      TextColor="White"
+                                      Command="{Binding RecordCommand}"/>
             </StackLayout>
         </StackLayout>
     </local:AnalyticsBasePage.Content>

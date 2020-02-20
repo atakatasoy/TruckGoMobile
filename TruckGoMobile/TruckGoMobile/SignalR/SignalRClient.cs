@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.SignalR.Client;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -30,13 +31,14 @@ namespace TruckGoMobile.SignalR
             Connection.Headers.Add(new KeyValuePair<string, string>("username", mUser.Username));
 
             ChatHubProxy = Connection.CreateHubProxy("ChatHub");
-            ChatHubProxy.On<string, string>("MessageReceived",
-                (username, message) =>
+            ChatHubProxy.On<string, string,bool>("MessageReceived",
+                (username, message,isSound) =>
                 {
                     var user = new SignalRUser
                     {
                         Username = username,
-                        Message = message
+                        Message = message,
+                        IsSound = isSound
                     };
                     OnMessageReceived?.Invoke(user);
                 });
@@ -52,9 +54,9 @@ namespace TruckGoMobile.SignalR
             });
         }
 
-        public void SendMessage(string username,string message)
+        public void SendMessage(string username,string message,bool isSound)
         {
-            ChatHubProxy.Invoke("SendMessage", username, message);
+            ChatHubProxy.Invoke("SendMessage", username, message, isSound);
         }
 
         private Task Start()

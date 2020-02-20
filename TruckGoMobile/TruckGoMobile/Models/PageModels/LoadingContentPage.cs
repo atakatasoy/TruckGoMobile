@@ -15,9 +15,9 @@ namespace TruckGoMobile
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-
-            if (((IServiceInfo)BindingContext).GetServiceMethods() is WebServiceDataRetrieveHandlers d)
-                ReadyToLoadData += d;
+            if (BindingContext != null && BindingContext is IServiceInfo)
+                if (((IServiceInfo)BindingContext).GetServiceMethods() is WebServiceDataRetrieveHandlers d)
+                    ReadyToLoadData += d;
             
             if (ReadyToLoadData != null)
             {

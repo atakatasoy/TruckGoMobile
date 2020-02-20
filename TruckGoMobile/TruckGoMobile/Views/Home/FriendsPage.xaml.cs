@@ -12,9 +12,11 @@ namespace TruckGoMobile.Views.Home
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class FriendsPage : AnalyticsBasePage
 	{
-        public FriendsPage() : base(nameof(AnalyticsBasePage))
+        FriendsPageViewModel viewModel;
+        public FriendsPage() : base(nameof(FriendsPage))
         {
             InitializeComponent();
+            BindingContext = viewModel = new FriendsPageViewModel();
         }
 	}
 }

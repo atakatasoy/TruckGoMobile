@@ -43,5 +43,11 @@ namespace TruckGoMobile.Views.Home
             viewModel.Client.ConnectionError -= ShowError;
             viewModel.Client.OnMessageReceived -= viewModel.AddMessage;
         }
+
+        private void MainList_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            var item = (SignalRUser)e.Item;
+            if (item.SavedSoundLocation != null) item.Play.Execute(null);
+        }
     }
 }

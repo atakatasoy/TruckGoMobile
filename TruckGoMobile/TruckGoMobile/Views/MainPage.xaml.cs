@@ -50,26 +50,39 @@ namespace TruckGoMobile.Views
             var staticClassInitiation = Utility.BaseURL;
         }
 
+        async Task<bool> IsGranted(Permission type)
+        {
+            bool okay = true;
+            var status = await CrossPermissions.Current.CheckPermissionStatusAsync(type);
+            if (status != PermissionStatus.Granted)
+            {
+                (await CrossPermissions.Current.RequestPermissionsAsync(type)).Select(perm => perm.Value).ToList().ForEach(permStatus =>
+                {
+                    if (permStatus != PermissionStatus.Granted)
+                    {
+                        okay = false; 
+                    }
+                });
+            }
+            return okay;
+        }
+        List<Permission> requiredPerms = new List<Permission>()
+        {
+            Permission.Location,
+            Permission.Microphone
+        };
         protected async override void OnAppearing()
         {
             base.OnAppearing();
             try
             {
-                A:
-                var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
-                if (status != PermissionStatus.Granted)
+                foreach(var perm in requiredPerms)
                 {
-                    (await CrossPermissions.Current.RequestPermissionsAsync(Permission.Location)).Select(perm => perm.Value).ToList().ForEach(permStatus => 
-                    {
-                        if (permStatus != PermissionStatus.Granted)
-                        {
-                            status = PermissionStatus.Denied;
-                        }
-                    });
-                }
-                if (status != PermissionStatus.Granted)
-                {
-                    goto A;
+                    A:
+
+                    bool val = await IsGranted(perm);
+
+                    if (!val) goto A;
                 }
             }
             catch

@@ -8,5 +8,6 @@ namespace TruckGoMobile
     {
         public string MessageContent { get; set; }
         public string MessageOwner { get; set; }
+        public bool IsSound { get; set; }
     }
 }
