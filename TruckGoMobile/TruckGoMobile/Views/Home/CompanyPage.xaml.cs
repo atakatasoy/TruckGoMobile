@@ -21,14 +21,17 @@ namespace TruckGoMobile.Views.Home
             SetInteractionalComponents(sendButton);
             BindingContext = viewModel = new CompanyPageViewModel();
             messageEntry.ReturnType = ReturnType.Send;
-            messageEntry.ReturnCommand = new Command(() => viewModel.SendCommand.Execute(null));
+            messageEntry.ReturnCommand = new Command(() =>
+            {
+                viewModel.SendCommand.Execute(null);
+            });
             viewModel.Client.ConnectionError += ShowError;
             viewModel.NewMessage += FocusToLastItem;
         }
 
         void FocusToLastItem()
         {
-            Device.BeginInvokeOnMainThread(() => mainList.ScrollTo(viewModel.MessageList[viewModel.MessageList.Count - 1], ScrollToPosition.End, true));
+            Device.BeginInvokeOnMainThread(() => mainList.ScrollTo(viewModel.MessageList[viewModel.MessageList.Count - 1], ScrollToPosition.End, false));
         }
 
         async void ShowError()
@@ -36,18 +39,40 @@ namespace TruckGoMobile.Views.Home
             await DisplayAlert("TruckGo", "Bağlantı sırasında hata oluştu.", "Tamam");
             await Navigation.PopAsync();
         }
-        protected override void OnDisappearing()
+        protected async override void OnDisappearing()
         {
             base.OnDisappearing();
+            if (VoiceManager.Instance.IsRecording)
+                await VoiceManager.Instance.StopRecording();
+            VoiceManager.Instance.Pause();
             viewModel.NewMessage -= FocusToLastItem;
             viewModel.Client.ConnectionError -= ShowError;
             viewModel.Client.OnMessageReceived -= viewModel.AddMessage;
+            VoiceManager.Instance.AddOrRemoveFinishedPlaying(viewModel.Toggle, false);
         }
 
-        private void MainList_ItemTapped(object sender, ItemTappedEventArgs e)
+        protected override void OnAppearing()
         {
-            var item = (SignalRUser)e.Item;
-            if (item.SavedSoundLocation != null) item.Play.Execute(null);
+            base.OnAppearing();
+            VoiceManager.Instance.AddOrRemoveFinishedPlaying(viewModel.Toggle, true);
+        }
+
+        bool recording = false;
+        private void RecordAnimation_OnClick(object sender, EventArgs e)
+        {
+            var view = (Lottie.Forms.AnimationView)sender;
+            if (!recording)
+            {
+                recording = true;
+                view.Play();
+                viewModel.RecordCommand.Execute(null);
+            }
+            else
+            {
+                recording = false;
+                view.PlayProgressSegment(1f, 0f);
+                viewModel.RecordCommand.Execute(null);
+            }
         }
     }
 }

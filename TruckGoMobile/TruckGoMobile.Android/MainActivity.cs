@@ -17,6 +17,9 @@ using Android.Support.V4.Content;
 using Android.Preferences;
 using Plugin.Permissions;
 using Rg.Plugins.Popup.Services;
+using Lottie.Forms.Droid;
+using TruckGoMobile.Droid.CustomComponents;
+using TruckGoMobile.CustomRenderers;
 
 namespace TruckGoMobile.Droid
 {
@@ -38,6 +41,35 @@ namespace TruckGoMobile.Droid
         public bool Bound;
 
         public CustomServiceConnection ServiceConnection;
+        #endregion
+
+        #region Keyboard Open
+        //private bool _lieAboutCurrentFocus;
+        //public override bool DispatchTouchEvent(MotionEvent ev)
+        //{
+        //    var focused = CurrentFocus;
+
+        //    //bool customEntryRendererFocused = focused.GetType() == typeof(NoUnfocusEntryRenderer);
+        //    bool customEntryRendererFocused = focused != null && focused.Parent is NoUnfocusEntryRenderer;
+        //    _lieAboutCurrentFocus = customEntryRendererFocused;
+        //    var result = base.DispatchTouchEvent(ev);
+        //    _lieAboutCurrentFocus = false;
+
+        //    return result;
+        //}
+
+        //public override Android.Views.View CurrentFocus
+        //{
+        //    get
+        //    {
+        //        if (_lieAboutCurrentFocus)
+        //        {
+        //            return null;
+        //        }
+
+        //        return base.CurrentFocus;
+        //    }
+        //}
         #endregion
 
         public void OnSharedPreferenceChanged(ISharedPreferences sharedPreferences,string key)
@@ -77,6 +109,7 @@ namespace TruckGoMobile.Droid
             UserDialogs.Init(this);
             ImageCircleRenderer.Init();
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            AnimationViewRenderer.Init();
             CrossCurrentActivity.Current.Init(this, savedInstanceState);
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
             myReceiver = new LocationReceiver() { Context = this };

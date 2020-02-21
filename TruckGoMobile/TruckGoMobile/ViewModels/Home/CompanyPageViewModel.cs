@@ -29,17 +29,12 @@ namespace TruckGoMobile
         public SignalRClient Client { get; private set; } = new SignalRClient();
         public string _username;
         public string MessageText { get; set; }
-        AudioRecorderService recorder = new AudioRecorderService()
-        {
-            StopRecordingAfterTimeout = false,
-            StopRecordingOnSilence = false,
-            FilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/XD.wav"
-        };
 
         public CompanyPageViewModel()
         {
             RegisterWebServiceMethod(WaitTillConnectionEstablished);
             RegisterWebServiceMethod(FetchRecentMessages);
+            MessageText = "";
 
             _username = UserManager.Instance.CurrentLoggedInUser.UserNameSurname;
 
@@ -53,37 +48,26 @@ namespace TruckGoMobile
 
             RecordCommand = new Command(async() => 
             {
-                if (!recorder.IsRecording)
+                if (!VoiceManager.Instance.IsRecording)
                 {
-                    await recorder.StartRecording();
+                    await VoiceManager.Instance.StartRecording();
                     Recording = true;
                 }
                 else
                 {
-                    await recorder.StopRecording();
+                    await VoiceManager.Instance.StopRecording();
                     Recording = false;
 
-                    var filePath = recorder.GetAudioFilePath();
+                    var filePath = VoiceManager.Instance.GetRecordedFilePath();
 
                     if (string.IsNullOrWhiteSpace(filePath))
                         return;
 
-                    var bytes = File.ReadAllBytes(filePath);
-                    var base64String = Convert.ToBase64String(bytes);
-
-                    DialogManager.Instance.ShowIndicator("Bekle");
-
-                    var response = await Helper.ApiCall<RegisterSoundResponseModel>(RequestType.Post, ControllerType.User, "registersound", JsonConvert.SerializeObject(new
-                    {
-                        UserManager.Instance.CurrentLoggedInUser.AccessToken,
-                        SoundBase64String = base64String
-                    }));
-
-                    DialogManager.Instance.HideIndicator();
+                    var response = await VoiceManager.Instance.SendFileToService(filePath);
                     
                     if (response.responseVal == 0)
                     {
-                        File.Move(filePath, Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/" + response.fileId + ".wav");
+                        File.Move(filePath, Helper.CreateDirectoryForSoundFile(response.fileId));
                         Client.SendMessage(_username, response.fileId, true);
                     }
                     else
@@ -102,40 +86,6 @@ namespace TruckGoMobile
             });
         }
 
-        async Task SetSoundPath(List<SignalRUser> list)
-        {
-            var fileIds = list.Select(u => u.Message);
-
-            var response = await Helper.ApiCall<GetSoundsResponseModel>(RequestType.Post, ControllerType.User, "getsounds", JsonConvert.SerializeObject(new
-            {
-                UserManager.Instance.CurrentLoggedInUser.AccessToken,
-                fileIds = new List<string>(fileIds)
-            }));
-            foreach (var sounds in response.soundsBase64Dic)
-            {
-                var bytes = Convert.FromBase64String(sounds.Value);
-                var path = System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +"/"+ sounds.Key + ".wav";
-                File.WriteAllBytes(path, bytes);
-                list.FirstOrDefault(u => u.Message == sounds.Key).SavedSoundLocation = path;
-            };
-        }
-
-        async Task SetSoundPath(SignalRUser user)
-        {
-            var response = await Helper.ApiCall<GetSoundsResponseModel>(RequestType.Post, ControllerType.User, "getsounds", JsonConvert.SerializeObject(new
-            {
-                UserManager.Instance.CurrentLoggedInUser.AccessToken,
-                fileIds = new List<string>() { user.Message }
-            }));
-            foreach (var sounds in response.soundsBase64Dic)
-            {
-                var bytes = Convert.FromBase64String(sounds.Value);
-                var path = System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)+"/" + sounds.Key + ".wav";
-                File.WriteAllBytes(path, bytes);
-                user.SavedSoundLocation = path;
-            };
-        }
-
         public void AddMessage(SignalRUser user)
         {
             MessageList.Add(user);
@@ -143,10 +93,15 @@ namespace TruckGoMobile
             if (user.IsSound)
             {
                 if (user.Username != UserManager.Instance.CurrentLoggedInUser.UserNameSurname)
-                    Task.Run(() => SetSoundPath(user));
+                    Task.Run(() => VoiceManager.Instance.LoadSound(user));
                 else
-                    user.SavedSoundLocation = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)+"/" + user.Message + ".wav";
+                    user.SavedSoundLocation = Helper.CreateDirectoryForSoundFile(user.Message);
             }
+        }
+
+        public void Toggle(object sender,EventArgs e)
+        {
+            MessageList.Where(m => m.IsSound).FirstOrDefault(m => m.SavedSoundLocation == VoiceManager.Instance.currentAudio).ToggleImage();
         }
 
         public async Task FetchRecentMessages()
@@ -178,7 +133,19 @@ namespace TruckGoMobile
                     }
                 }
                 if (listOfSounds.Count != 0)
-                    Task.Run(() => SetSoundPath(listOfSounds));
+                {
+                    listOfSounds = listOfSounds.Where(sound =>
+                    {
+                        var path = Helper.CreateDirectoryForSoundFile(sound.Message);
+                        if (!File.Exists(path))
+                            return true;
+
+                        sound.SavedSoundLocation = path;
+                        return false;
+                    }).ToList();
+
+                    Task.Run(() => VoiceManager.Instance.LoadSounds(listOfSounds));
+                }
                 NewMessage?.Invoke();
             }
             else

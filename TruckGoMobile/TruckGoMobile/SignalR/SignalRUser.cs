@@ -10,7 +10,8 @@ namespace TruckGoMobile
 {
     public class SignalRUser : INotifyPropertyChanged
     {
-        static AudioPlayer player = new AudioPlayer();
+        public static SignalRUser CurrentPlaying = null;
+        public event PropertyChangedEventHandler PropertyChanged = (sender, e) => { };
 
         public string Username { get; set; }
         public string Message { get; set; }
@@ -18,14 +19,51 @@ namespace TruckGoMobile
         public string SavedSoundLocation { get; set; }
         public ICommand Play { get; set; }
 
+        public ImageSource Image { get; set; }
+
+        public bool IsPlaying = false;
         public SignalRUser()
         {
+            Image = "../play.png";
             Play = new Command(() =>
             {
-                if (SavedSoundLocation != null)
-                    player.Play(SavedSoundLocation);
+                if (!IsPlaying)
+                {
+                    CurrentPlaying?.SetImageToPlay();
+                    CurrentPlaying = this;
+                }
+                    
+                TogglePlaying();
             });
         }
-        public event PropertyChangedEventHandler PropertyChanged = (sender, e) => { };
+        public void TogglePlaying()
+        {
+            if (!IsPlaying)
+            {
+                Image = "../pause.png";
+                VoiceManager.Instance.Play(SavedSoundLocation);
+            }
+            else
+            {
+                Image = "../play.png";
+                VoiceManager.Instance.Pause();
+            }
+            IsPlaying = IsPlaying ? false : true;
+        }
+        public void ToggleImage()
+        {
+            if (!IsPlaying)
+                Image = "../pause.png";
+
+            else
+                Image = "../play.png";
+
+            IsPlaying = IsPlaying ? false : true;
+        }
+        public void SetImageToPlay()
+        {
+            Image = "../play.png";
+            IsPlaying = false;
+        }
     }
 }

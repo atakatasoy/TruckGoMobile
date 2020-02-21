@@ -36,7 +36,7 @@ namespace TruckGoMobile.Views
         {
             InitializeComponent();
             MasterBehavior = MasterBehavior.Popover;
-
+            VoiceManager.Init();
             if (UserManager.Instance.LogInActiveUser())
             {
                 var homePageKey = (int)MenuItemType.Home;

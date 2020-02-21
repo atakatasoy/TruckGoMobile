@@ -23,6 +23,9 @@ namespace TruckGoMobile.Services
 
     public static class Helper
     {
+        public static string ApplicationFolderPath => Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+
+        public static string SoundMediaType => ".wav";
 
         public static async Task LogError(string responseText,string date,dynamic parameters)
         {
@@ -33,6 +36,11 @@ namespace TruckGoMobile.Services
                 date,
                 parameters
             }));
+        }
+
+        public static string CreateDirectoryForSoundFile(string fileName)
+        {
+            return ApplicationFolderPath + "/" + fileName + SoundMediaType;
         }
 
         public static async Task<T> ApiCall<T>(RequestType type, ControllerType controller, string actionName, string inputParams = null) 

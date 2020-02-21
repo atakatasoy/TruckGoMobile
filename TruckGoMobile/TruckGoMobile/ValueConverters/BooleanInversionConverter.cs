@@ -1,22 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Globalization;
 using System.Text;
 using TruckGoMobile.ValueConverters;
 
 namespace TruckGoMobile
 {
-    public class PathStringToColorConverter : BaseValueConverter<PathStringToColorConverter>
+    public class BooleanInversionConverter : BaseValueConverter<BooleanInversionConverter>
     {
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var stringVal = value as string;
-
-            if (value != null)
-                return Color.Green;
-
-            return Color.Red;
+            return !(bool)value;
         }
 
         public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

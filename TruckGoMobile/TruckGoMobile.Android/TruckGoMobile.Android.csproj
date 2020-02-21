@@ -60,6 +60,9 @@
     <PackageReference Include="Acr.UserDialogs">
       <Version>7.0.35</Version>
     </PackageReference>
+    <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie">
+      <Version>3.0.4</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.AspNet.SignalR.Client">
       <Version>2.4.1</Version>
     </PackageReference>
@@ -114,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomComponents\BorderlessEntryRenderer.cs" />
+    <Compile Include="CustomComponents\NoUnfocusEntryRenderer.cs" />
     <Compile Include="Database\DroidConnection.cs" />
     <Compile Include="Firebase\FirebaseAnalyticsDroid.cs" />
     <Compile Include="LocationService\CustomServiceConnection.cs" />
@@ -130,6 +134,7 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\TruckGoUserDb.db" />
+    <AndroidAsset Include="Assets\recording.json" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <None Include="Properties\AndroidManifest.xml">
@@ -198,6 +203,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\map.jpeg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\play.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\pause.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
