@@ -54,11 +54,10 @@ namespace TruckGoMobile
         {
             if (!IsPlaying)
                 Image = "../pause.png";
-
             else
                 Image = "../play.png";
 
-            IsPlaying = IsPlaying ? false : true;
+            IsPlaying = !IsPlaying;
         }
         public void SetImageToPlay()
         {

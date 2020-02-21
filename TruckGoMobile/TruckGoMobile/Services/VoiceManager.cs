@@ -28,7 +28,7 @@ namespace TruckGoMobile
                 {
                     StopRecordingAfterTimeout = false,
                     StopRecordingOnSilence = false,
-                    FilePath = Helper.CreateDirectoryForSoundFile("temp")
+                    FilePath = Helper.CreateDirectoryForSoundFile("temp"),
                 },
                 player = new AudioPlayer()
             };

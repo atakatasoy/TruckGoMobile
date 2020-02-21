@@ -18,6 +18,7 @@ namespace TruckGoMobile
 {
     public class CompanyPageViewModel : BaseViewModel
     {
+        #region Public Members
         public ObservableCollection<SignalRUser> MessageList { get; set; } = new ObservableCollection<SignalRUser>();
 
         public delegate void NewMessageDelegate();
@@ -28,7 +29,8 @@ namespace TruckGoMobile
         public bool Recording { get; set; }
         public SignalRClient Client { get; private set; } = new SignalRClient();
         public string _username;
-        public string MessageText { get; set; }
+        public string MessageText { get; set; } 
+        #endregion
 
         public CompanyPageViewModel()
         {
@@ -46,62 +48,18 @@ namespace TruckGoMobile
                 MessageText = string.Empty;
             });
 
-            RecordCommand = new Command(async() => 
-            {
-                if (!VoiceManager.Instance.IsRecording)
-                {
-                    await VoiceManager.Instance.StartRecording();
-                    Recording = true;
-                }
-                else
-                {
-                    await VoiceManager.Instance.StopRecording();
-                    Recording = false;
-
-                    var filePath = VoiceManager.Instance.GetRecordedFilePath();
-
-                    if (string.IsNullOrWhiteSpace(filePath))
-                        return;
-
-                    var response = await VoiceManager.Instance.SendFileToService(filePath);
-                    
-                    if (response.responseVal == 0)
-                    {
-                        File.Move(filePath, Helper.CreateDirectoryForSoundFile(response.fileId));
-                        Client.SendMessage(_username, response.fileId, true);
-                    }
-                    else
-                        DialogManager.Instance.ShowDialog("Birşeyler ters gitti.Lütfen daha sonra tekrar deneyiniz");
-                }
-            });
+            RecordCommand = new Command(RecordSound);
 
             Client.Connect();
         }
 
+        #region Service Methods
         public async Task WaitTillConnectionEstablished()
         {
             await Task.Run(() =>
             {
                 while (Client.connectionEstablished == null) ;
             });
-        }
-
-        public void AddMessage(SignalRUser user)
-        {
-            MessageList.Add(user);
-            NewMessage?.Invoke();
-            if (user.IsSound)
-            {
-                if (user.Username != UserManager.Instance.CurrentLoggedInUser.UserNameSurname)
-                    Task.Run(() => VoiceManager.Instance.LoadSound(user));
-                else
-                    user.SavedSoundLocation = Helper.CreateDirectoryForSoundFile(user.Message);
-            }
-        }
-
-        public void Toggle(object sender,EventArgs e)
-        {
-            MessageList.Where(m => m.IsSound).FirstOrDefault(m => m.SavedSoundLocation == VoiceManager.Instance.currentAudio).ToggleImage();
         }
 
         public async Task FetchRecentMessages()
@@ -116,7 +74,7 @@ namespace TruckGoMobile
             if (response.responseVal == 0)
             {
                 var listOfSounds = new List<SignalRUser>();
-                foreach(var message in response.messagesList)
+                foreach (var message in response.messagesList)
                 {
                     var user = new SignalRUser
                     {
@@ -157,5 +115,55 @@ namespace TruckGoMobile
                 });
             }
         }
+        #endregion
+
+        #region Helper Methods
+        async void RecordSound()
+        {
+            if (!VoiceManager.Instance.IsRecording)
+            {
+                await VoiceManager.Instance.StartRecording();
+                Recording = true;
+            }
+            else
+            {
+                await VoiceManager.Instance.StopRecording();
+                Recording = false;
+
+                var filePath = VoiceManager.Instance.GetRecordedFilePath();
+
+                if (string.IsNullOrWhiteSpace(filePath))
+                    return;
+
+                var response = await VoiceManager.Instance.SendFileToService(filePath);
+
+                if (response.responseVal == 0)
+                {
+                    File.Move(filePath, Helper.CreateDirectoryForSoundFile(response.fileId));
+                    Client.SendMessage(_username, response.fileId, true);
+                }
+                else
+                    DialogManager.Instance.ShowDialog("Birşeyler ters gitti.Lütfen daha sonra tekrar deneyiniz");
+            }
+        }
+
+        public void AddMessage(SignalRUser user)
+        {
+            MessageList.Add(user);
+            NewMessage?.Invoke();
+            if (user.IsSound)
+            {
+                if (user.Username != UserManager.Instance.CurrentLoggedInUser.UserNameSurname)
+                    Task.Run(() => VoiceManager.Instance.LoadSound(user));
+                else
+                    user.SavedSoundLocation = Helper.CreateDirectoryForSoundFile(user.Message);
+            }
+        }
+
+        public void Toggle(object sender, EventArgs e)
+        {
+            MessageList.Where(m => m.IsSound).FirstOrDefault(m => m.SavedSoundLocation == VoiceManager.Instance.currentAudio)?.ToggleImage();
+        } 
+        #endregion
     }
 }

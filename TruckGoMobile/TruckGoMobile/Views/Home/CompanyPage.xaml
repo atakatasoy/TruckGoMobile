@@ -37,9 +37,9 @@
                                                VerticalTextAlignment="Center"
                                                HorizontalTextAlignment="Start"/>
                                         <Frame IsVisible="{Binding IsSound}"
-                                               IsEnabled="{Binding SavedSoundLocation,Converter={local:PathStringToEnabledConverter}}"
                                                HeightRequest="56"
                                                WidthRequest="56"
+                                               IsEnabled="{Binding SavedSoundLocation,Converter={local:PathStringToEnabledConverter}}"
                                                Padding="1"
                                                CornerRadius="28">
                                             <Grid>
